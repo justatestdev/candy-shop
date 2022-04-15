@@ -13,30 +13,34 @@ let notificationIns: any = null;
 Notification.newInstance(
   {
     style: { top: 10, left: 'unset', right: 10 },
-    prefixCls: 'cds-rc-notification',
+    prefixCls: 'candy-notification',
   },
   (n) => {
     notificationIns = n;
   }
 );
 
-export const notification = (content: string, type: string): void => {
+export const notification = (content: string, type: NotificationType): void => {
   notificationIns.notice({
     content: (
       <NotiContent>
-        <div className="cds-left">
-          {type === 'success' && <IconSuccess />}
-          {type === 'error' && <IconError />}
+        <div className="candy-left">
+          {type === NotificationType.Success && <IconSuccess />}
+          {type === NotificationType.Error && <IconError />}
         </div>
-        <div className="cds-right">
-          {type === 'success' && <div className="title">Success</div>}
-          {type === 'error' && <div className="title">Error</div>}
+        <div className="candy-right">
+          {type === NotificationType.Success && (
+            <div className="title">Success</div>
+          )}
+          {type === NotificationType.Error && (
+            <div className="title">Error</div>
+          )}
           <div className="desc">{content}</div>
         </div>
       </NotiContent>
     ),
     duration: 3,
-    prefixCls: 'cds',
+    prefixCls: 'candy',
   });
 };
 
@@ -51,7 +55,7 @@ const NotiContent = styled.div`
   border: 1px solid #000;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-  .cds-right {
+  .candy-right {
     .title {
       font-size: 18px;
       line-height: 24px;
@@ -61,7 +65,7 @@ const NotiContent = styled.div`
     }
   }
 
-  .cds-left {
+  .candy-left {
     display: flex;
     align-items: center;
     margin-right: 10px;

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { AnchorWallet } from '@solana/wallet-adapter-react';
 import { SingleTokenInfo } from 'api/fetchMetadata';
 import { CancelModal } from 'components/CancelModal';
 import { LiqImage } from 'components/LiqImage';
@@ -10,10 +11,16 @@ import { Order as OrderSchema } from 'solana-candy-shop-schema/dist';
 export interface NftProps {
   nft: SingleTokenInfo;
   candyShop: CandyShop;
+  wallet: AnchorWallet;
   sellDetail?: OrderSchema;
 }
 
-export const Nft = ({ nft, candyShop, sellDetail }: NftProps): JSX.Element => {
+export const Nft = ({
+  nft,
+  candyShop,
+  wallet,
+  sellDetail,
+}: NftProps): JSX.Element => {
   const [selection, setSelection] = useState<SingleTokenInfo | undefined>();
 
   const onClose = useCallback(() => {
@@ -31,7 +38,12 @@ export const Nft = ({ nft, candyShop, sellDetail }: NftProps): JSX.Element => {
       <Card onClick={onClick}>
         {isSellItem && <div className="vault-status-tag">Listed for Sale</div>}
 
-        <LiqImage src={nft?.nftImage} alt={nft?.metadata?.data?.name} />
+        <LiqImage
+          src={nft?.nftImage}
+          alt={nft?.metadata?.data?.name}
+          fit="cover"
+          style={{ borderTopRightRadius: 14, borderTopLeftRadius: 14 }}
+        />
         <div className="vault-list-item-body">
           <div className="vault-list-item-header">
             <CardName>
@@ -43,7 +55,12 @@ export const Nft = ({ nft, candyShop, sellDetail }: NftProps): JSX.Element => {
       </Card>
 
       {selection && !isSellItem && (
-        <SellModal onCancel={onClose} nft={selection} candyShop={candyShop} />
+        <SellModal
+          onCancel={onClose}
+          nft={selection}
+          candyShop={candyShop}
+          wallet={wallet}
+        />
       )}
 
       {selection && sellDetail ? (
@@ -51,6 +68,7 @@ export const Nft = ({ nft, candyShop, sellDetail }: NftProps): JSX.Element => {
           onClose={onClose}
           candyShop={candyShop}
           order={sellDetail}
+          wallet={wallet}
         />
       ) : null}
     </>
@@ -73,7 +91,7 @@ const CardName = styled.div`
   border-bottom-right-radius: 16px;
   .name {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     text-align: left;
     overflow: hidden;
     white-space: nowrap;
