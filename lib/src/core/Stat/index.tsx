@@ -20,13 +20,29 @@ export const Stat = ({
   const [stat, setStat] = useState<any>([]);
 
   const floorPrice = stat?.floorPrice
-    ? (Number(stat.floorPrice) / web3.LAMPORTS_PER_SOL).toFixed(3)
+    ? (Number(stat.floorPrice) / candyShop.baseUnitsPerCurrency).toLocaleString(
+        undefined,
+        {
+          minimumFractionDigits: candyShop.priceDecimals,
+          maximumFractionDigits: candyShop.priceDecimals,
+        }
+      )
     : null;
 
-  const totalListed = stat?.totalListed ? stat.totalListed : 0;
+  const totalListed = stat?.totalListed
+    ? stat.totalListed.toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })
+    : 0;
 
   const totalVolume = stat?.totalVolume
-    ? (Number(stat.totalVolume) / web3.LAMPORTS_PER_SOL).toFixed(3)
+    ? (
+        Number(stat.totalVolume) / candyShop.baseUnitsPerCurrency
+      ).toLocaleString(undefined, {
+        minimumFractionDigits: candyShop.volumeDecimals,
+        maximumFractionDigits: candyShop.volumeDecimals,
+      })
     : 0;
 
   // handle fetch data
@@ -44,26 +60,32 @@ export const Stat = ({
 
   return (
     <Wrap style={style}>
-      <div className="cds-container">
+      <div className="candy-container">
         <Flex>
           <Box1>
-            <div className="title">{title}</div>
-            <div className="description">{description}</div>
+            <div className="candy-stat-component-title">{title}</div>
+            <div className="candy-stat-component-description">
+              {description}
+            </div>
           </Box1>
           <Box2>
             <Item>
               <div className="candy-label">FLOOR PRICE</div>
-              <div className="statistics">
-                {floorPrice === null ? 'N/A' : `${floorPrice} SOL`}
+              <div className="candy-value-lg">
+                {floorPrice === null
+                  ? 'N/A'
+                  : `${floorPrice} ${candyShop.currencySymbol}`}
               </div>
             </Item>
             <Item>
               <div className="candy-label">TOTAL LISTED</div>
-              <div className="statistics">{totalListed}</div>
+              <div className="candy-value-lg">{totalListed}</div>
             </Item>
             <Item>
               <div className="candy-label">VOLUME</div>
-              <div className="statistics">{totalVolume} SOL</div>
+              <div className="candy-value-lg">
+                {totalVolume} {candyShop.currencySymbol}
+              </div>
             </Item>
           </Box2>
         </Flex>
@@ -90,7 +112,7 @@ const Flex = styled.div`
 `;
 
 const Box1 = styled.div`
-  .title {
+  .candy-stat-component-title {
     text-align: left;
     margin-bottom: 12px;
 
@@ -106,9 +128,10 @@ const Box1 = styled.div`
     }
   }
 
-  .description {
-    color: #c9cfd0;
+  .candy-stat-component-description {
     text-align: left;
+    color: #c9cfd0;
+    font-size: 16px;
     margin-bottom: 15px;
   }
 `;
@@ -133,7 +156,12 @@ const Item = styled.div`
     border-right: 1px solid #bdbdbd;
   }
 
-  .statistics {
+  .candy-label {
+    text-align: center;
+  }
+
+  .candy-value-lg {
+    text-align: center;
     font-size: 20px;
     font-weight: bold;
 

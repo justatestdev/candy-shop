@@ -17,13 +17,12 @@ import {
   fetchOrdersByStoreId,
   fetchOrdersByStoreIdAndWalletAddress,
   OrdersFilterQuery,
-  SortBy,
-} from '../api/backend/OrderAPI';
-import { fetchStatsById } from '../api/backend/StatsAPI';
-import { fetchTradeById } from '../api/backend/TradeAPI';
-import { buyAndExecuteSale } from '../api/program/buyAndExecuteSale';
-import { cancelOrder } from '../api/program/cancel';
-import { sellNft } from '../api/program/sell';
+} from 'api/backend/OrderAPI';
+import { fetchStatsById } from 'api/backend/StatsAPI';
+import { fetchTradeById } from 'api/backend/TradeAPI';
+import { buyAndExecuteSale } from 'api/program/buyAndExecuteSale';
+import { cancelOrder } from 'api/program/cancel';
+import { sellNft } from 'api/program/sell';
 import {
   getAuctionHouse,
   getAuctionHouseAuthority,
@@ -32,10 +31,28 @@ import {
   getAuctionHouseTreasuryAcct,
   getCandyShopSync,
   getMetadataAccount,
-} from '../api/utils';
+} from 'api/utils';
+
+const DEFAULT_CURRENCY_SYMBOL = 'SOL';
+const DEFAULT_CURRENCY_DECIMALS = 9;
+const DEFAULT_PRICE_DECIMALS = 3;
+const DEFAULT_VOLUME_DECIMALS = 1;
 
 /**
- * Core Candy Shop module
+ * @field currencySymbol your shop transaction currency symbol (default is SOL)
+ * @field currencyDecimals your shop transaction currency decimals (default is 9 for SOL)
+ * @field priceDecimals number of decimals to display for price numbers (default is 3)
+ * @field volumeDecimals number of decimals to display for volume numbers (default is 1)
+ */
+export type CandyShopSettings = {
+  currencySymbol: string;
+  currencyDecimals: number;
+  priceDecimals: number;
+  volumeDecimals: number;
+};
+
+/**
+ * @class CandyShop
  */
 export class CandyShop {
   private _candyShopAddress: web3.PublicKey;
@@ -43,15 +60,24 @@ export class CandyShop {
   private _treasuryMint: web3.PublicKey;
   private _programId: web3.PublicKey;
   private _env: web3.Cluster;
-  private _wallet: AnchorWallet;
+  private _settings: CandyShopSettings;
+  private _baseUnitsPerCurrency: number;
   private _program: Program | undefined;
 
+  /**
+   * @constructor
+   * @param candyShopCreatorAddress creator address (i.e. your wallet address)
+   * @param treasuryMint treasury mint (i.e. currency to buy and sell with)
+   * @param candyShopProgramId Candy Shop program id
+   * @param env web3.Cluster mainnet, devnet
+   * @param settings optional, additional shop settings
+   */
   constructor(
     candyShopCreatorAddress: web3.PublicKey,
     treasuryMint: web3.PublicKey,
     candyShopProgramId: web3.PublicKey,
     env: web3.Cluster,
-    wallet: AnchorWallet
+    settings?: CandyShopSettings
   ) {
     this._candyShopAddress = getCandyShopSync(
       candyShopCreatorAddress,
@@ -62,30 +88,43 @@ export class CandyShop {
     this._treasuryMint = treasuryMint;
     this._programId = candyShopProgramId;
     this._env = env;
-    this._wallet = wallet;
+    this._settings = {
+      currencySymbol: settings?.currencySymbol ?? DEFAULT_CURRENCY_SYMBOL,
+      currencyDecimals: settings?.currencyDecimals ?? DEFAULT_CURRENCY_DECIMALS,
+      priceDecimals: settings?.priceDecimals ?? DEFAULT_PRICE_DECIMALS,
+      volumeDecimals: settings?.volumeDecimals ?? DEFAULT_VOLUME_DECIMALS,
+    };
+    this._baseUnitsPerCurrency = Math.pow(10, this._settings.currencyDecimals);
+
     configBaseUrl(env);
   }
   /**
    * Initiate the CandyShop object
    */
-  async initIfNotReady(): Promise<void> {
-    if (typeof this._program === 'undefined') {
-      const options = Provider.defaultOptions();
-      const connection = new web3.Connection(
-        this._env === 'mainnet-beta'
-          ? 'https://ssc-dao.genesysgo.net/'
-          : web3.clusterApiUrl('devnet'),
-        options.commitment
-      );
-      const provider = new Provider(connection, this._wallet, options);
-      console.log('fetching idl for programId', this._programId.toString());
+  async getStaticProgram(wallet: AnchorWallet): Promise<any> {
+    if (this._program) {
+      return this._program;
+    }
 
-      const idl = await Program.fetchIdl(this._programId, provider);
-      if (idl) {
-        this._program = new Program(idl, this._programId, provider);
-      } else {
-        throw new Error('Idl not found');
-      }
+    const options = Provider.defaultOptions();
+    const connection = new web3.Connection(
+      this._env === 'mainnet-beta'
+        ? 'https://ssc-dao.genesysgo.net/'
+        : web3.clusterApiUrl('devnet'),
+      options.commitment
+    );
+    const provider = new Provider(connection, wallet, options);
+    console.log(
+      'CandyShop init: fetching idl for programId',
+      this._programId.toString()
+    );
+
+    const idl = await Program.fetchIdl(this._programId, provider);
+    if (idl) {
+      this._program = new Program(idl, this._programId, provider);
+      return this._program;
+    } else {
+      throw new Error('Idl not found');
     }
   }
 
@@ -109,14 +148,31 @@ export class CandyShop {
     return this._programId;
   }
 
+  get baseUnitsPerCurrency(): number {
+    return this._baseUnitsPerCurrency;
+  }
+
+  get currencySymbol(): string {
+    return this._settings.currencySymbol;
+  }
+
+  get priceDecimals(): number {
+    return this._settings.priceDecimals;
+  }
+
+  get volumeDecimals(): number {
+    return this._settings.volumeDecimals;
+  }
+
   public async buy(
     seller: web3.PublicKey,
     tokenAccount: web3.PublicKey,
     tokenMint: web3.PublicKey,
-    price: BN
+    price: BN,
+    wallet: AnchorWallet
   ): Promise<string> {
     console.log('buy called');
-    await this.initIfNotReady();
+    const program = await this.getStaticProgram(wallet);
     const [auctionHouseAuthority, authorityBump] =
       await getAuctionHouseAuthority(
         this._candyShopCreatorAddress,
@@ -134,7 +190,7 @@ export class CandyShop {
     const [metadata] = await getMetadataAccount(tokenMint);
 
     const txHash = await buyAndExecuteSale(
-      this._wallet,
+      wallet,
       seller,
       tokenAccount,
       tokenMint,
@@ -148,7 +204,7 @@ export class CandyShop {
       this._candyShopAddress,
       price,
       new BN(1),
-      this._program!
+      program
     );
 
     return txHash;
@@ -157,9 +213,10 @@ export class CandyShop {
   public async sell(
     tokenAccount: web3.PublicKey,
     tokenMint: web3.PublicKey,
-    price: BN
+    price: BN,
+    wallet: AnchorWallet
   ): Promise<string> {
-    await this.initIfNotReady();
+    const program = await this.getStaticProgram(wallet);
     const [auctionHouseAuthority, authorityBump] =
       await getAuctionHouseAuthority(
         this._candyShopCreatorAddress,
@@ -177,7 +234,7 @@ export class CandyShop {
     const [metadata] = await getMetadataAccount(tokenMint);
 
     const txHash = await sellNft(
-      this._wallet,
+      wallet,
       tokenAccount,
       tokenMint,
       this._treasuryMint,
@@ -189,7 +246,7 @@ export class CandyShop {
       this._candyShopAddress,
       price,
       new BN(1),
-      this._program!
+      program
     );
     return txHash;
   }
@@ -197,9 +254,10 @@ export class CandyShop {
   async cancel(
     tokenAccount: web3.PublicKey,
     tokenMint: web3.PublicKey,
-    price: BN
+    price: BN,
+    wallet: AnchorWallet
   ): Promise<string> {
-    await this.initIfNotReady();
+    const program = await this.getStaticProgram(wallet);
     const [auctionHouseAuthority, authorityBump] =
       await getAuctionHouseAuthority(
         this._candyShopCreatorAddress,
@@ -216,7 +274,7 @@ export class CandyShop {
 
     const [tradeState] = await getAuctionHouseTradeState(
       auctionHouse,
-      this._wallet.publicKey,
+      wallet.publicKey,
       tokenAccount,
       this._treasuryMint,
       tokenMint,
@@ -225,7 +283,7 @@ export class CandyShop {
     );
 
     const txHash = await cancelOrder(
-      this._wallet,
+      wallet,
       tokenAccount,
       tokenMint,
       auctionHouseAuthority,
@@ -236,7 +294,7 @@ export class CandyShop {
       this._candyShopAddress,
       price,
       new BN(1),
-      this._program!
+      program
     );
 
     return txHash;
@@ -256,7 +314,7 @@ export class CandyShop {
 
   async orders(
     ordersFilterQuery: OrdersFilterQuery,
-    identifiers?: string[]
+    identifiers?: number[]
   ): Promise<ListBase<Order>> {
     const { sortBy, offset, limit } = ordersFilterQuery;
     return fetchOrdersByStoreId(
