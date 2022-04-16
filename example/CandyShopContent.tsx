@@ -24,7 +24,7 @@ export const CandyShopContent: React.FC = () => {
 
   return (
     <div style={{ paddingBottom: 50 }}>
-      <div style={{ textAlign: 'center', paddingBottom: 30 }}>
+      <div style={{ textAlign: 'right', padding: 30 }}>
         <WalletMultiButton />
       </div>
 

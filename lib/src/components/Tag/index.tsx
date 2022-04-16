@@ -11,7 +11,7 @@ export const Tag: React.FunctionComponent<TagProps> = ({ text }) => {
 
 const Wrap = styled.div`
   padding: 1px 8px;
-  background-color: #e0e0e0;
+  background-color: #1990ff;
   border-radius: 8px;
   font-size: 12px;
 `;

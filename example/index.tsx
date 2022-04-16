@@ -19,6 +19,7 @@ import 'react-app-polyfill/ie11';
 import ReactDOM from 'react-dom';
 import { CandyShopContent } from './CandyShopContent';
 import { TORUS_WALLET_CLIENT_ID } from './constant/clientId';
+import './index.less'
 
 const App = () => {
   const network = WalletAdapterNetwork.Devnet;

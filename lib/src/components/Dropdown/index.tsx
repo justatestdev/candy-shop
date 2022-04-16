@@ -74,14 +74,13 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({
 
 const DropdownWrap = styled.div`
   padding: 12px;
-  border: 2px solid black;
+  border: 1px solid #14535e;
   width: 184px;
   &:hover {
     cursor: pointer;
   }
   border-radius: 4px;
   position: relative;
-  background-color: white;
 `;
 
 const Flex = styled.div`
@@ -92,27 +91,33 @@ const Flex = styled.div`
 
 const Label = styled.p<{ isMenuOpen?: boolean }>`
   margin: 0;
-  color: ${(props) => (props.isMenuOpen ? '#7522F5' : 'black')};
+  color: white;
 `;
 
 const IconWrapper = styled.div`
   pointer-events: none;
+  svg path {
+    fill: currentColor;
+  }
 `;
 
 const DropdownMenu = styled.div`
   width: 184px;
-  background-color: white;
-  margin-top: 8px;
+  background-color: #05424d;
+  margin-top: 4px;
   position: absolute;
   left: 0;
   top: 100%;
   z-index: 99;
-  border: 2px solid black;
+  border: 1px solid #031f25;
   border-radius: 4px;
   .menu-middle-item {
     padding: 12px;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #03272e;
     text-align: left;
+  }
+  .menu-middle-item:hover, .menu-last-item:hover {
+    background-color: #1b7988;
   }
   .menu-last-item {
     padding: 12px;

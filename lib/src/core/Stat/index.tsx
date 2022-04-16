@@ -107,6 +107,7 @@ const Box1 = styled.div`
   }
 
   .description {
+    color: #c9cfd0;
     text-align: left;
     margin-bottom: 15px;
   }

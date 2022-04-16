@@ -66,13 +66,15 @@ export const Order: React.FC<OrderProps> = ({
 const Wrap = styled.div`
   height: 100%;
   border-radius: 16px;
-  border: 2px solid black;
-  background-color: white;
+  border: 2px solid #021012;
+  background-color: rgba(171, 171, 171, 0.36);
+  overflow: hidden;
 `;
 
 const OrderInfo = styled.div`
   padding: 15px;
   display: flex;
+  background-color: #072d34;
   > *:nth-of-type(1) {
     width: 60%;
   }

@@ -58,19 +58,19 @@ export const Nft = ({ nft, candyShop, sellDetail }: NftProps): JSX.Element => {
 };
 
 const Card = styled.div`
-  border: 2px solid black;
   border-radius: 16px;
   height: auto;
   position: relative;
   z-index: 3;
+  background-color: rgba(171, 171, 171, 0.36);
+  overflow: hidden;
+  border: 2px solid black;
 `;
 
 const CardName = styled.div`
   vertical-align: middle;
   padding: 12px;
-  background-color: #fff;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  background-color: #072d34;
   .name {
     font-weight: bold;
     font-size: 14px;
