@@ -26,7 +26,10 @@ export const CandyShopContent: React.FC = () => {
 
   return (
     <div style={{ paddingBottom: 50, textAlign: 'center' }}>
-      <div style={{ textAlign: 'center', paddingBottom: 30 }}>
+      <div className='main-header'>
+        <a className='main-header-logo' href="https://solice.io">
+          <img src="https://solice.io/images/solice_logo_name_right_white.png" />
+        </a>
         <WalletMultiButton />
       </div>
 
@@ -45,21 +48,9 @@ export const CandyShopContent: React.FC = () => {
           wallet={wallet}
           candyShop={candyShopRef.current}
           walletConnectComponent={<WalletMultiButton />}
-          filters={[
-            {name: 'Sword', identifier: -280213123 },
-            {name: 'Happy', identifier: -38328789 },
-          ]}
+          
         />
       </div>
-
-      <h1 style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: 30 }}>Order Detail</h1>
-      <OrderDetail
-        tokenMint={'EVdLAk8GeWRsj2HpyBujG1pJPip5gjkPcZ76QinsHHtJ'}
-        backUrl={'/'}
-        candyShop={candyShopRef.current}
-        walletConnectComponent={<WalletMultiButton />}
-        wallet={wallet}
-      />
 
       <h1 style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: 30 }}>Sell</h1>
       <Sell

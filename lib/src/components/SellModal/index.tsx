@@ -191,6 +191,11 @@ const InputNumber = styled.div`
     border: none;
     outline: none;
     flex-grow: 1;
+    background: transparent;
+
+    &::placeholder {
+      color: #687c7f;
+    }
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {

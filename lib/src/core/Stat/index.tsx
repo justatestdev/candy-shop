@@ -132,7 +132,6 @@ const Box1 = styled.div`
     text-align: left;
     color: #c9cfd0;
     font-size: 16px;
-    margin-bottom: 15px;
   }
 `;
 

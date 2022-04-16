@@ -1,5 +1,6 @@
 body,html {
     height: auto;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body { 
@@ -8,14 +9,52 @@ body {
     background: linear-gradient(135deg,#0B2A2F 0%, #003D47 100%);
     padding: 0 24px;
 }
-
+html {
+    background: #0B2A2F;
+}
 h1, h2, h3, h4, h5, h6 {
     color: #fff;
+    font-family: 'Bebas Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    letter-spacing: 0.01em;
 }
 
-a {
+.candy-stat-component-title, .candy-title {
+    font-family: 'Bebas Neue';
+    letter-spacing: 0.03em;
+}
+
+a, .candy-value a {
     color: #ff18e9;
     &:hover {
        color: #ff49ed;
+    }
+}
+
+.candy-value a {
+    color: #ff18e9!important;
+    &:hover {
+       color: #ff49ed!important;
+    }
+}
+
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    margin-bottom: 48px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    .main-header-logo {
+        max-width: 130px;
+        width: 100%;
+        height: 74px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
     }
 }
