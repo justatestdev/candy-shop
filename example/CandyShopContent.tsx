@@ -2,8 +2,8 @@ import { WalletMultiButton } from '@solana/wallet-adapter-ant-design';
 import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import { web3 } from "@project-serum/anchor";
 import 'antd/dist/antd.min.css';
-import React from 'react';
-import { CandyShop, Orders, Stat, OrderDetail, Sell } from '../lib/';
+import React, { useRef } from 'react';
+import { CandyShop, Orders, Stat, OrderDetail, Sell } from '../lib/.';
 import {
   CANDY_SHOP_PROGRAM_ID,
   CREATOR_ADDRESS,
@@ -15,11 +15,13 @@ export const CandyShopContent: React.FC = () => {
   const wallet = useAnchorWallet();
   const env: web3.Cluster = 'devnet';
 
-  const candyShop = new CandyShop(
-    new web3.PublicKey(CREATOR_ADDRESS),
-    new web3.PublicKey(TREASURY_MINT),
-    new web3.PublicKey(CANDY_SHOP_PROGRAM_ID),
-    env
+  const candyShopRef = useRef<CandyShop>(
+    new CandyShop(
+      new web3.PublicKey(CREATOR_ADDRESS),
+      new web3.PublicKey(TREASURY_MINT),
+      new web3.PublicKey(CANDY_SHOP_PROGRAM_ID),
+      env
+    )
   );
 
   return (
@@ -30,7 +32,7 @@ export const CandyShopContent: React.FC = () => {
 
       <div style={{ marginBottom: 50 }}>
         <Stat
-          candyShop={candyShop}
+          candyShop={candyShopRef.current}
           title={'Marketplace'}
           description={
             'Candy Shop is an open source on-chain protocol that empowers DAOs, NFT projects and anyone interested in creating an NFT marketplace to do so within minutes!'
@@ -41,16 +43,20 @@ export const CandyShopContent: React.FC = () => {
       <div >
         <Orders
           wallet={wallet}
-          candyShop={candyShop}
+          candyShop={candyShopRef.current}
           walletConnectComponent={<WalletMultiButton />}
+          filters={[
+            {name: 'Sword', identifier: -280213123 },
+            {name: 'Happy', identifier: -38328789 },
+          ]}
         />
       </div>
 
       <h1 style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: 30 }}>Order Detail</h1>
       <OrderDetail
-        tokenMint={'WfL9fAggBMHmjvBEu1v53fQkRmB3Cn4giJSSQxVSC5W'}
+        tokenMint={'EVdLAk8GeWRsj2HpyBujG1pJPip5gjkPcZ76QinsHHtJ'}
         backUrl={'/'}
-        candyShop={candyShop}
+        candyShop={candyShopRef.current}
         walletConnectComponent={<WalletMultiButton />}
         wallet={wallet}
       />
@@ -59,7 +65,7 @@ export const CandyShopContent: React.FC = () => {
       <Sell
         connection={connection}
         wallet={wallet}
-        candyShop={candyShop}
+        candyShop={candyShopRef.current}
         walletConnectComponent={<WalletMultiButton />}
       />
     </div>

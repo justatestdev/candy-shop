@@ -33,8 +33,26 @@ import {
   getMetadataAccount,
 } from 'api/utils';
 
+const DEFAULT_CURRENCY_SYMBOL = 'SOL';
+const DEFAULT_CURRENCY_DECIMALS = 9;
+const DEFAULT_PRICE_DECIMALS = 3;
+const DEFAULT_VOLUME_DECIMALS = 1;
+
 /**
- * Core Candy Shop module
+ * @field currencySymbol your shop transaction currency symbol (default is SOL)
+ * @field currencyDecimals your shop transaction currency decimals (default is 9 for SOL)
+ * @field priceDecimals number of decimals to display for price numbers (default is 3)
+ * @field volumeDecimals number of decimals to display for volume numbers (default is 1)
+ */
+export type CandyShopSettings = {
+  currencySymbol: string;
+  currencyDecimals: number;
+  priceDecimals: number;
+  volumeDecimals: number;
+};
+
+/**
+ * @class CandyShop
  */
 export class CandyShop {
   private _candyShopAddress: web3.PublicKey;
@@ -42,13 +60,24 @@ export class CandyShop {
   private _treasuryMint: web3.PublicKey;
   private _programId: web3.PublicKey;
   private _env: web3.Cluster;
+  private _settings: CandyShopSettings;
+  private _baseUnitsPerCurrency: number;
   private _program: Program | undefined;
 
+  /**
+   * @constructor
+   * @param candyShopCreatorAddress creator address (i.e. your wallet address)
+   * @param treasuryMint treasury mint (i.e. currency to buy and sell with)
+   * @param candyShopProgramId Candy Shop program id
+   * @param env web3.Cluster mainnet, devnet
+   * @param settings optional, additional shop settings
+   */
   constructor(
     candyShopCreatorAddress: web3.PublicKey,
     treasuryMint: web3.PublicKey,
     candyShopProgramId: web3.PublicKey,
-    env: web3.Cluster
+    env: web3.Cluster,
+    settings?: CandyShopSettings
   ) {
     this._candyShopAddress = getCandyShopSync(
       candyShopCreatorAddress,
@@ -59,6 +88,14 @@ export class CandyShop {
     this._treasuryMint = treasuryMint;
     this._programId = candyShopProgramId;
     this._env = env;
+    this._settings = {
+      currencySymbol: settings?.currencySymbol ?? DEFAULT_CURRENCY_SYMBOL,
+      currencyDecimals: settings?.currencyDecimals ?? DEFAULT_CURRENCY_DECIMALS,
+      priceDecimals: settings?.priceDecimals ?? DEFAULT_PRICE_DECIMALS,
+      volumeDecimals: settings?.volumeDecimals ?? DEFAULT_VOLUME_DECIMALS,
+    };
+    this._baseUnitsPerCurrency = Math.pow(10, this._settings.currencyDecimals);
+
     configBaseUrl(env);
   }
   /**
@@ -109,6 +146,22 @@ export class CandyShop {
 
   get programId(): web3.PublicKey {
     return this._programId;
+  }
+
+  get baseUnitsPerCurrency(): number {
+    return this._baseUnitsPerCurrency;
+  }
+
+  get currencySymbol(): string {
+    return this._settings.currencySymbol;
+  }
+
+  get priceDecimals(): number {
+    return this._settings.priceDecimals;
+  }
+
+  get volumeDecimals(): number {
+    return this._settings.volumeDecimals;
   }
 
   public async buy(
@@ -261,7 +314,7 @@ export class CandyShop {
 
   async orders(
     ordersFilterQuery: OrdersFilterQuery,
-    identifiers?: string[]
+    identifiers?: number[]
   ): Promise<ListBase<Order>> {
     const { sortBy, offset, limit } = ordersFilterQuery;
     return fetchOrdersByStoreId(
