@@ -2,7 +2,8 @@
   "private": true,
   "workspaces": [
     "@liqnft/candy-shop",
-    "example"
+    "example",
+    "@liqnft/candy-shop-sdk"
   ],
   "scripts": {
     "start": "parcel example/index.html",
