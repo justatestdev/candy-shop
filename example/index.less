@@ -62,3 +62,54 @@ a, .candy-value a {
 .ant-btn {
     border-radius: 20px;
 }
+
+.main-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 350px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background-image: url('https://storage.googleapis.com/cdn.solice.io/public/solice-map-gradient.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    > div {
+        padding-left: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.main-banner-title {
+    font-family: 'Bebas Neue';
+    font-size: 42px;
+    letter-spacing: 0.03em;
+    text-align: left;
+}
+
+.main-banner-description {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.main-banner-button {
+    // display: block;
+    color: #fff;
+    text-align: left;
+    text-shadow: 0 -1px #0000001f;
+    background: #1890ff;
+    border-color: #1890ff;
+    box-shadow: 0 2px #0000000b;
+    border-radius: 20px;
+    padding: 8px 12px;
+    line-height: 20px;
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    &:hover {
+        color: #fff;
+        background: #40a9ff;
+        border-color: #40a9ff;
+    }
+}

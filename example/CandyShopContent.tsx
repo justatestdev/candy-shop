@@ -32,11 +32,17 @@ export const CandyShopContent: React.FC = () => {
         </a>
         <WalletMultiButton />
       </div>
-
+      <div className='main-banner'>
+          <div>
+            <div className='main-banner-title'>Solice Marketplace</div>
+            <div className='main-banner-description'>Welcome to the solice marketplace!</div>
+            <div><a href="https://solice.io/map" className='main-banner-button'>Check out the map</a></div>
+          </div>
+      </div>
       <div style={{ marginBottom: 50 }}>
         <Stat
           candyShop={candyShopRef.current}
-          title={'Marketplace'}
+          // title={'Marketplace'}
           description={
             'Candy Shop is an open source on-chain protocol that empowers DAOs, NFT projects and anyone interested in creating an NFT marketplace to do so within minutes!'
           }
