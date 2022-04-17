@@ -10,6 +10,7 @@ import {
   TREASURY_MINT,
 } from './constant/publicKey';
 import Footer from './Footer';
+import Header from './Header';
 
 export const CandyShopContent: React.FC = () => {
   const { connection } = useConnection();
@@ -29,12 +30,7 @@ export const CandyShopContent: React.FC = () => {
     <>
 
       <div style={{ paddingBottom: 50, paddingLeft: 24, paddingRight: 24, textAlign: 'center' }}>
-        <div className='main-header'>
-          <a className='main-header-logo' href="https://solice.io">
-            <img src="https://solice.io/images/solice_logo_name_right_white.png" />
-          </a>
-          <WalletMultiButton />
-        </div>
+        <Header />
         <div className='main-banner'>
             <div>
               <div className='main-banner-title'>Solice Marketplace</div>

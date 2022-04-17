@@ -175,3 +175,53 @@ a, .candy-value a {
 .footer-link + .footer-link {
     margin-top: 12px;
 }
+
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+    padding-top: 24px;
+    @media (max-width: 680px) {
+        flex-direction: column;
+    }
+}
+
+.header-logo {
+    max-width: 130px;
+    width: 100%;
+    height: 74px;
+    img {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.header-nav {
+    display: flex;
+    grid-gap: 48px;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    
+    @media (max-width: 680px) {
+        margin-top: 24px;
+    }
+}
+
+.header-navLink {
+    position: relative;
+    font-size: 20px;
+    font-family: 'Bebas Neue';
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: #fff;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
