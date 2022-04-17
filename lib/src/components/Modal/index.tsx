@@ -68,7 +68,7 @@ const Container = styled.div<{
 
     border-radius: 16px;
     border: 2px solid #024a56;
-    background: linear-gradient(135deg,#0B2A2F 0%, #003D47 100%);;
+    background: linear-gradient(135deg, #0b2a2f 0%, #003d47 100%);
     box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
       0 9px 28px 8px rgb(0 0 0 / 5%);
   }

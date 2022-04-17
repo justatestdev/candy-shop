@@ -116,7 +116,8 @@ const DropdownMenu = styled.div`
     border-bottom: 1px solid #03272e;
     text-align: left;
   }
-  .menu-middle-item:hover, .menu-last-item:hover {
+  .menu-middle-item:hover,
+  .menu-last-item:hover {
     background-color: #1b7988;
   }
   .menu-last-item {
