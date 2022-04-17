@@ -137,7 +137,8 @@ const Box1 = styled.div`
 const Box2 = styled.div`
   text-align: center;
 
-  align-self: flex-end;
+  align-self: flex-start;
+  margin-top: 16px;
   display: flex;
   > * {
     width: calc(100% / 3);

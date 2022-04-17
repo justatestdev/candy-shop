@@ -44,7 +44,7 @@ export const CandyShopContent: React.FC = () => {
           candyShop={candyShopRef.current}
           // title={'Marketplace'}
           description={
-            'Candy Shop is an open source on-chain protocol that empowers DAOs, NFT projects and anyone interested in creating an NFT marketplace to do so within minutes!'
+            'A LAND is a digital piece of real estate in The Solice metaverse that users can acquire to build experiences on top of. Once you own a LAND, you will be able to your own content and fancy it up with Games and Assets. Each LAND is a unique (non-fungible) token lying on the public Solana blockchain.'
           }
         />
       </div>
