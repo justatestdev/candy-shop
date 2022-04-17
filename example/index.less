@@ -7,7 +7,6 @@ body {
     color: #fff;
     background: #0B2A2F;
     background: linear-gradient(135deg,#0B2A2F 0%, #003D47 100%);
-    padding: 0 24px;
 }
 html {
     background: #0B2A2F;
@@ -68,6 +67,9 @@ a, .candy-value a {
     justify-content: center;
     align-items: center;
     background-color: black;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
     height: 350px;
     border-radius: 8px;
     margin-bottom: 16px;
@@ -112,4 +114,64 @@ a, .candy-value a {
         background: #40a9ff;
         border-color: #40a9ff;
     }
+}
+
+.footer-container {
+    padding: 100px 24px;
+    background-image: linear-gradient(133deg, rgb(55, 12, 59) 0%, rgb(1, 0, 67) 51%, rgb(83, 3, 128) 100%);
+    box-shadow: rgb(0 0 0 / 60%) -8px 20px 14px -17px inset;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 24px;
+    @media (max-width: 480px) {
+        grid-template-columns: auto;
+        justify-content: center;
+        text-align: center;
+        grid-gap: 48px;
+    }
+}
+
+.footer-logo {
+    display: block;
+    max-width: 178px;
+    width: 100%;
+    height: 74px;
+    img {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.footer-heading {
+    margin: 0;
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-family: 'Bebas Neue';
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: #fff;
+}
+
+.footer-link {
+    display: block;
+    font-size: 16px;
+    font-family: 'Bebas Neue';
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: #a199a9;
+    &:hover {
+        text-decoration: underline;
+        color: #fff;
+    }
+}
+
+.footer-link + .footer-link {
+    margin-top: 12px;
 }

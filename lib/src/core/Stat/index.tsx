@@ -61,12 +61,6 @@ export const Stat = ({
     <Wrap style={style}>
       <div className="candy-container">
         <Flex>
-          <Box1>
-            <div className="candy-stat-component-title">{title}</div>
-            <div className="candy-stat-component-description">
-              {description}
-            </div>
-          </Box1>
           <Box2>
             <Item>
               <div className="candy-label">FLOOR PRICE</div>
@@ -98,7 +92,7 @@ const Wrap = styled.div``;
 const Flex = styled.div`
   display: flex;
   > * {
-    width: 50%;
+    width: 100%;
   }
 
   @media ${breakPoints.tabletL} {
