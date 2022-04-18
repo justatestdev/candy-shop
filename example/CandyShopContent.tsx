@@ -70,7 +70,7 @@ export const CandyShopContent: React.FC = () => {
             wallet={wallet}
             candyShop={candyShop}
             walletConnectComponent={<WalletMultiButton />}
-            
+            filters={FILTERS}
           />
         </div>
 
@@ -80,7 +80,6 @@ export const CandyShopContent: React.FC = () => {
           wallet={wallet}
           candyShop={candyShop}
           walletConnectComponent={<WalletMultiButton />}
-          filters={FILTERS}
         />
       </div>
       <Footer />
