@@ -18,7 +18,8 @@ export const CandyShopContent: React.FC = () => {
   const [treasuryMint] = useState(new web3.PublicKey(TREASURY_MINT));
 
   const wallet = useAnchorWallet();
-  const env: web3.Cluster | string = process.env.CHAIN_ENV || 'devnet';
+
+  const env: web3.Cluster | any = process.env.CHAIN_ENV || 'devnet';
 
   const settings = {
       currencySymbol: 'SLC',
