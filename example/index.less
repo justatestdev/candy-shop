@@ -98,27 +98,44 @@ a, .candy-value a {
 }
 
 .main-banner-button {
-    // display: block;
+    display: inline-flex;
+  position: relative;
+  border: 1px solid #2d3085;
+  appearance: none;
+  padding: 13px 34px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: 'Bebas Neue';
+  height: auto;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, rgb(69, 180, 212), rgb(86, 78, 216));
+  box-shadow: 1px 2px 16px 3px rgba(54, 54, 54, 0.5);
+
+  &:hover {
+    background: linear-gradient(90deg, rgb(77, 200, 235), rgb(97, 89, 240));
     color: #fff;
-    text-align: left;
-    text-shadow: 0 -1px #0000001f;
-    background: #1890ff;
-    border-color: #1890ff;
-    box-shadow: 0 2px #0000000b;
-    border-radius: 20px;
-    padding: 8px 12px;
-    line-height: 20px;
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    &:hover {
-        color: #fff;
-        background: #40a9ff;
-        border-color: #40a9ff;
-    }
+    border: 1px solid #2d3085;
+  }
+
+  &:active,
+  &:focus {
+    background: linear-gradient(90deg, rgb(65, 173, 202), rgb(79, 73, 202));
+    color: #fff;
+    border: 1px solid #2d3085;
+  }
+
+  &:disabled {
+    background: linear-gradient(90deg, hsl(193deg 2% 25%), hsl(243deg 4% 38%));
+    border-color: hsl(193deg 2% 25%);
+    cursor: unset;
+  }
 }
 
 .footer-container {
     padding: 100px 24px;
-    background-image: linear-gradient(133deg, rgb(55, 12, 59) 0%, rgb(1, 0, 67) 51%, rgb(83, 3, 128) 100%);
+    background-image: linear-gradient(133deg, #112a4e 0%, #002d43 51%, #031b53 100%);
     box-shadow: rgb(0 0 0 / 60%) -8px 20px 14px -17px inset;
 }
 
@@ -223,5 +240,39 @@ a, .candy-value a {
     
     &:hover {
         text-decoration: underline;
+    }
+}
+
+
+.ant-btn-primary {
+    display: inline-flex;
+    position: relative;
+    border: 1px solid #2d3085;
+    appearance: none;
+    padding: 13px 34px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: 'Bebas Neue';
+    height: auto;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    background: linear-gradient(90deg, rgb(69, 180, 212), rgb(86, 78, 216));  
+    box-shadow: 1px 2px 16px 3px rgba(54, 54, 54, 0.5); 
+    
+    &:hover {
+        background: linear-gradient(90deg, rgb(77, 200, 235), rgb(97, 89, 240));  
+        border: 1px solid #2d3085;
+    }
+    
+    &:active, &:focus {
+        background: linear-gradient(90deg, rgb(65, 173, 202), rgb(79, 73, 202));  
+        border: 1px solid #2d3085;
+    }
+  
+    &:disabled {
+        background: linear-gradient(90deg, hsl(193deg 2% 25%), hsl(243deg 4% 38%));
+        border-color:  hsl(193deg 2% 25%);
+        cursor: unset;
     }
 }

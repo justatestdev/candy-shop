@@ -48,6 +48,12 @@ export const Order: React.FC<OrderProps> = ({
     }
   }, [order, url]);
 
+  const landPattern = /^(.*)+(\[\d+,?\s\d+\])+$/gi;
+  const avatarPattern = /^(.*)+(#\d+)$/gi;
+  const nameSplit =
+    landPattern.exec(order.name) || avatarPattern.exec(order.name);
+  const isLand = nameSplit?.length === 3;
+
   return (
     <>
       <Wrap onClick={onClick}>
@@ -59,8 +65,15 @@ export const Order: React.FC<OrderProps> = ({
         />
         <OrderInfo>
           <Name>
-            <div className="name">{order?.name}</div>
+            {isLand ? (
+              <div className="name">{nameSplit[1]}</div>
+            ) : (
+              <div className="name">{order?.name}</div>
+            )}
             <div className="ticker candy-line-limit-1">{order?.ticker}</div>
+            {isLand && (
+              <div className="ticker candy-line-limit-1">{nameSplit[2]}</div>
+            )}
           </Name>
           <Price>
             <div className="text">Price</div>
