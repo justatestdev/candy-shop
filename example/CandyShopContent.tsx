@@ -1,8 +1,8 @@
 import { WalletMultiButton } from '@solana/wallet-adapter-ant-design';
 import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
-import { web3 } from "@project-serum/anchor";
+import { web3 } from '@project-serum/anchor';
 import 'antd/dist/antd.min.css';
-import React, { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CandyShop, Orders, Stat, OrderDetail, Sell } from '../lib/.';
 import {
   CANDY_SHOP_PROGRAM_ID,
@@ -14,21 +14,37 @@ import Header from './Header';
 
 export const CandyShopContent: React.FC = () => {
   const { connection } = useConnection();
-  const wallet = useAnchorWallet();
-  const env: web3.Cluster = 'devnet';
+  const [candyShop, setCandyShop] = useState<CandyShop>();
+  const [treasuryMint] = useState(new web3.PublicKey(TREASURY_MINT));
 
-  const candyShopRef = useRef<CandyShop>(
-    new CandyShop(
-      new web3.PublicKey(CREATOR_ADDRESS),
-      new web3.PublicKey(TREASURY_MINT),
-      new web3.PublicKey(CANDY_SHOP_PROGRAM_ID),
-      env
-    )
-  );
+  const wallet = useAnchorWallet();
+
+  const env: web3.Cluster | any = process.env.CHAIN_ENV || 'devnet';
+
+  const settings = {
+      currencySymbol: 'SLC',
+      currencyDecimals: 6,
+      priceDecimals: 3,
+      volumeDecimals: 1
+    };
+
+  useEffect(() => {
+    if (!treasuryMint) return;
+    setCandyShop(
+      new CandyShop(
+        new web3.PublicKey(CREATOR_ADDRESS),
+        treasuryMint,
+        new web3.PublicKey(CANDY_SHOP_PROGRAM_ID),
+        env,
+        settings
+      )
+    );
+  }, [treasuryMint]);
+
+  if (!candyShop) return null;
 
   return (
     <>
-
       <div style={{ paddingBottom: 50, paddingLeft: 24, paddingRight: 24, textAlign: 'center' }}>
         <Header />
         <div className='main-banner'>
@@ -38,22 +54,23 @@ export const CandyShopContent: React.FC = () => {
               <div><a href="https://solice.io/map" className='main-banner-button'>Check out the map</a></div>
             </div>
         </div>
+        
         <div style={{ marginBottom: 50 }}>
-          <Stat
-            candyShop={candyShopRef.current}
-            // title={'Marketplace'}
-            // description={
-            //   'A LAND is a digital piece of real estate in The Solice metaverse that users can acquire to build experiences on top of. Once you own a LAND, you will be able to your own content and fancy it up with Games and Assets. Each LAND is a unique (non-fungible) token lying on the public Solana blockchain.'
-            // }
+          <Stat         
+            candyShop={candyShop}
+              title={'Marketplace'}
+              description={
+                'Welcome to the Solice Metaverse Marketplace. Users can exchange official Solice Metaverse NFT collections here in SLC. All trades are peer-2-peer and are executed and facilitated on the Solana network.'
+              }
           />
         </div>
 
         <div >
           <Orders
             wallet={wallet}
-            candyShop={candyShopRef.current}
+            candyShop={candyShop}
             walletConnectComponent={<WalletMultiButton />}
-            
+            filters={FILTERS}
           />
         </div>
 
@@ -61,11 +78,17 @@ export const CandyShopContent: React.FC = () => {
         <Sell
           connection={connection}
           wallet={wallet}
-          candyShop={candyShopRef.current}
+          candyShop={candyShop}
           walletConnectComponent={<WalletMultiButton />}
         />
       </div>
       <Footer />
-  </>
+    </>
   );
 };
+
+const FILTERS = [
+  { name: 'Solice Land', identifier: -23115230},
+  { name: 'Genesis Avatar', identifier: -50222243 },
+  { name: 'Genesis Staking', identifier: -1595400151 },
+];
