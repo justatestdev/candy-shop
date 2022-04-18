@@ -47,20 +47,36 @@
 }
 
 .candy-button {
-  background: @primary-color;
-  border-radius: 20px;
-  font-size: 16px;
-  padding: 6px 16px;
-  color: #ffffff;
-  border: 2px solid transparent;
+  display: inline-flex;
+  position: relative;
+  border: 1px solid #2d3085;
+  appearance: none;
+  padding: 13px 34px;
+  color: #fff;
   cursor: pointer;
+  border-radius: 10px;
+  font-family: 'Bebas Neue';
+  height: auto;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, rgb(69, 180, 212), rgb(86, 78, 216));
+  box-shadow: 1px 2px 16px 3px rgba(54, 54, 54, 0.5);
 
   &:hover {
-    background: #9a4dff;
+    background: linear-gradient(90deg, rgb(77, 200, 235), rgb(97, 89, 240));
+    border: 1px solid #2d3085;
+  }
+
+  &:active,
+  &:focus {
+    background: linear-gradient(90deg, rgb(65, 173, 202), rgb(79, 73, 202));
+    border: 1px solid #2d3085;
   }
 
   &:disabled {
-    background: @gray-medium;
+    background: linear-gradient(90deg, hsl(193deg 2% 25%), hsl(243deg 4% 38%));
+    border-color: hsl(193deg 2% 25%);
+    cursor: unset;
   }
 }
 
