@@ -23,11 +23,11 @@ export const CandyShopContent: React.FC = () => {
   const env: web3.Cluster | any = process.env.CHAIN_ENV || 'devnet';
 
   const settings = {
-      currencySymbol: 'SLC',
-      currencyDecimals: 6,
-      priceDecimals: 3,
-      volumeDecimals: 1
-    };
+    currencySymbol: 'SLC',
+    currencyDecimals: 6,
+    priceDecimals: 3,
+    volumeDecimals: 1
+  };
 
   useEffect(() => {
     if (!treasuryMint) return;
@@ -46,27 +46,40 @@ export const CandyShopContent: React.FC = () => {
 
   return (
     <>
-      <div style={{ paddingBottom: 50, paddingLeft: 24, paddingRight: 24, textAlign: 'center' }}>
+      <div
+        style={{
+          paddingBottom: 50,
+          paddingLeft: 24,
+          paddingRight: 24,
+          textAlign: 'center'
+        }}
+      >
         <Header />
-        <div className='main-banner'>
-            <div>
-              <div className='main-banner-title'>Solice Marketplace</div>
-              <div className='main-banner-description'>Welcome to the solice marketplace!</div>
-              <div><a href="https://solice.io/map" className='main-banner-button'>Check out the map</a></div>
+        <div className="main-banner">
+          <div>
+            <div className="main-banner-title">Solice Marketplace</div>
+            <div className="main-banner-description">
+              Welcome to the solice marketplace!
             </div>
+            <div>
+              <a href="https://solice.io/map" className="main-banner-button">
+                Check out the map
+              </a>
+            </div>
+          </div>
         </div>
-        
+
         <div style={{ marginBottom: 50 }}>
-          <Stat         
+          <Stat
             candyShop={candyShop}
-              title={'Marketplace'}
-              description={
-                'Welcome to the Solice Metaverse Marketplace. Users can exchange official Solice Metaverse NFT collections here in SLC. All trades are peer-2-peer and are executed and facilitated on the Solana network.'
-              }
+            title={'Marketplace'}
+            description={
+              'Welcome to the Solice Metaverse Marketplace. Users can exchange official Solice Metaverse NFT collections here in SLC. All trades are peer-2-peer and are executed and facilitated on the Solana network.'
+            }
           />
         </div>
 
-        <div >
+        <div>
           <Orders
             wallet={wallet}
             candyShop={candyShop}
@@ -75,7 +88,11 @@ export const CandyShopContent: React.FC = () => {
           />
         </div>
 
-        <h1 style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: 30 }}>Sell</h1>
+        <h1
+          style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: 30 }}
+        >
+          Sell
+        </h1>
         <Sell
           connection={connection}
           wallet={wallet}
@@ -89,7 +106,7 @@ export const CandyShopContent: React.FC = () => {
 };
 
 const FILTERS = [
-  { name: 'Solice Land', identifier: -23115230},
+  { name: 'Solice Land', identifier: -23115230 },
   { name: 'Genesis Avatar', identifier: -50222243 },
-  { name: 'Genesis Staking', identifier: -1595400151 },
+  { name: 'Genesis Staking', identifier: -1595400151 }
 ];
