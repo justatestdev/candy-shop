@@ -277,3 +277,164 @@ a, .candy-value a {
         cursor: unset;
     }
 }
+
+.candy-button {
+    display: inline-flex;
+    position: relative;
+    border: 1px solid #2d3085;
+    appearance: none;
+    padding: 13px 34px;
+    color: #fff;
+}
+
+.candy-dropdown {
+    padding: 12px;
+    border: 1px solid #14535e;
+    width: 184px;
+    &:hover {
+        cursor: pointer;
+    }
+    border-radius: 4px;
+    position: relative;
+}
+
+.candy-dropdown-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.candy-dropdown-menu {
+    width: 184px;
+    background-color: #05424d;
+    margin-top: 4px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 99;
+    border: 1px solid #031f25;
+    border-radius: 4px;
+    .menu-middle-item {
+        padding: 12px;
+        border-bottom: 1px solid #03272e;
+        text-align: left;
+    }
+    .menu-middle-item:hover,
+    .menu-last-item:hover {
+        background-color: #1b7988;
+    }
+    .menu-last-item {
+        padding: 12px;
+        text-align: left;
+    }
+}
+
+.candy-nft-card {
+    border-radius: 16px;
+    height: auto;
+    position: relative;
+    z-index: 3;
+    background-color: rgba(171, 171, 171, 0.36);
+    overflow: hidden;
+    border: 2px solid black;
+}
+
+.candy-nft-info {
+    vertical-align: middle;
+    padding: 12px;
+    background-color: #072d34;
+    .name {
+        font-weight: bold;
+        font-size: 16px;
+        text-align: left;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .ticker {
+        font-size: 14px;
+        text-align: left;
+        font-weight: 400;
+        height: 22px;
+    }
+}
+
+.candy-order {
+    height: 100%;
+    border-radius: 16px;
+    border: 2px solid #021012;
+    background-color: rgba(171, 171, 171, 0.36);
+    overflow: hidden;
+}
+
+.candy-order-info {
+    padding: 15px;
+    display: flex;
+    background-color: #072d34;
+    > *:nth-of-type(1) {
+      width: 60%;
+    }
+    > *:nth-of-type(2) {
+      width: 40%;
+    }
+    .name {
+        font-weight: bold;
+        font-size: 16px;
+        text-align: left;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .ticker {
+        font-size: 14px;
+        text-align: left;
+    }
+}
+
+.candy-order-price-container {
+    align-self: flex-end;
+  text-align: right;
+  .text {
+    color: #757575;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .price {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+.candy-sell-modal-input-number {
+    width: 100%;
+  height: 40px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+
+  border-radius: 4px;
+  border: 2px solid #bdbdbd;
+
+  input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    background: transparent;
+
+    &::placeholder {
+      color: #687c7f;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+}
