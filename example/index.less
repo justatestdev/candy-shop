@@ -277,3 +277,183 @@ a, .candy-value a {
         cursor: unset;
     }
 }
+
+
+.candy-label {
+    color: #4f7bd6!important;
+}
+
+.candy-button {
+    display: inline-flex!important;
+    position: relative!important;
+    border: 1px solid #2d3085!important;
+    appearance: none!important;
+    padding: 13px 34px!important;
+    color: #fff!important;
+}
+
+.candy-dropdown {
+    background-color: transparent!important;
+    padding: 12px!important;
+    border: 1px solid #14535e!important;
+    width: 184px!important;
+    &:hover {
+        cursor: pointer!important;
+    }
+    border-radius: 4px!important;
+    position: relative!important;
+}
+
+.candy-dropdown-flex {
+    display: flex!important;
+    align-items: center!important;
+    justify-content: space-between!important;
+}
+
+.candy-dropdown-menu {
+    width: 184px!important;
+    background-color: #05424d!important;
+    margin-top: 4px!important;
+    position: absolute!important;
+    left: 0!important;
+    top: 100%!important;
+    z-index: 99!important;
+    border: 1px solid #031f25!important;
+    border-radius: 4px!important;
+    .menu-middle-item {
+        padding: 12px!important;
+        border-bottom: 1px solid #03272e!important;
+        text-align: left!important;
+    }
+    .menu-middle-item:hover,
+    .menu-last-item:hover {
+        background-color: #1b7988!important;
+    }
+    .menu-last-item {
+        padding: 12px!important;
+        text-align: left!important;
+    }
+}
+
+.candy-dropdown-label {
+    color: #fff;
+}
+.candy-dropdown-label--black {
+    color: #fff!important;
+}
+.candy-dropdown-label--purple {
+    color: #fff!important;
+}
+.candy-dropdown-icon path {
+    fill: #fff!important;
+}
+
+.candy-nft-card {
+    border-radius: 16px!important;
+    height: auto!important;
+    position: relative!important;
+    z-index: 3!important;
+    background-color: rgba(171, 171, 171, 0.36)!important;
+    overflow: hidden!important;
+    border: 2px solid black!important;
+}
+
+.candy-nft-info {
+    vertical-align: middle!important;
+    padding: 12px!important;
+    background-color: #072d34!important;
+    .name {
+        font-weight: bold!important;
+        font-size: 16px!important;
+        text-align: left!important;
+        overflow: hidden!important;
+        white-space: nowrap!important;
+        text-overflow: ellipsis!important;
+    }
+    .ticker {
+        font-size: 14px!important;
+        text-align: left!important;
+        font-weight: 400!important;
+        height: 22px!important;
+    }
+}
+
+.candy-order {
+    height: 100%!important;
+    border-radius: 16px!important;
+    border: 2px solid #021012!important;
+    background-color: rgba(171, 171, 171, 0.36)!important;
+    overflow: hidden!important;
+}
+
+.candy-order-info {
+    padding: 15px!important;
+    display: flex!important;
+    background-color: #072d34!important;
+    > *:nth-of-type(1) {
+      width: 60%!important;
+    }
+    > *:nth-of-type(2) {
+      width: 40%!important;
+    }
+    .name {
+        font-weight: bold!important;
+        font-size: 16px!important;
+        text-align: left!important;
+        overflow: hidden!important;
+        white-space: nowrap!important;
+        text-overflow: ellipsis!important;
+    }
+    .ticker {
+        font-size: 14px!important;
+        text-align: left!important;
+    }
+}
+
+.candy-order-price-container {
+    align-self: flex-end!important;
+  text-align: right!important;
+  .text {
+    color: #757575!important;
+    font-size: 12px!important;
+    text-transform: uppercase!important;
+    font-weight: bold!important;
+  }
+  .price {
+    font-size: 14px!important;
+    font-weight: bold!important;
+  }
+}
+
+.candy-sell-modal-input-number {
+    width: 100%!important;
+  height: 40px!important;
+  padding: 4px 8px!important;
+  display: flex!important;
+  align-items: center!important;
+
+  border-radius: 4px!important;
+  border: 2px solid #bdbdbd!important;
+
+  input {
+    border: none!important;
+    outline: none!important;
+    flex-grow: 1!important;
+    background: transparent!important;
+
+    &::placeholder {
+      color: #687c7f!important;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none!important;
+      margin: 0!important;
+    }
+
+    /* Firefox */
+    &[type='number'] {
+      -moz-appearance: textfield!important;
+    }
+  }
+}
