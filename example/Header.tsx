@@ -24,6 +24,9 @@ const Header: React.FC<Props> = () => {
         <a href={'https://staking.solice.io'} className={'header-navLink'}>
           Staking
         </a>
+        <a href={'/blog'} className={'header-navLink'}>
+          Blog
+        </a>
         <WalletMultiButton />
       </nav>
     </div>

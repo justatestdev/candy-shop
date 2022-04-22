@@ -369,18 +369,15 @@ a,
   overflow: hidden !important;
   border: 2px solid black !important;
 }
-
+.candy-order-info {
+  color: #fff!important;
+}
 .candy-nft-info {
   vertical-align: middle !important;
   padding: 12px !important;
   background-color: #072d34 !important;
   .name {
-    font-weight: bold !important;
-    font-size: 16px !important;
-    text-align: left !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
+    white-space: pre-wrap!important;
   }
   .ticker {
     font-size: 14px !important;
@@ -409,12 +406,7 @@ a,
     width: 40% !important;
   }
   .name {
-    font-weight: bold !important;
-    font-size: 16px !important;
-    text-align: left !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
+    white-space: pre-wrap !important;
   }
   .ticker {
     font-size: 14px !important;
@@ -426,7 +418,7 @@ a,
   align-self: flex-end !important;
   text-align: right !important;
   .text {
-    color: #757575 !important;
+    color: #b5b5b5 !important;
     font-size: 12px !important;
     text-transform: uppercase !important;
     font-weight: bold !important;
@@ -468,4 +460,19 @@ a,
       -moz-appearance: textfield !important;
     }
   }
+}
+
+
+.candy-modal-content {
+  background: #0b2a2f;
+  background: linear-gradient(135deg, #0b2a2f 0%, #003d47 100%);
+  color: #fff!important;
+  border-color: #076271!important;
+}
+
+.candy-attribute-container .candy-nft-attribute {
+  background-color: #49a0d5!important;
+}
+.candy-modal-close-btn .close:before, .candy-modal-close-btn .close:after {
+  background-color: #fff!important;
 }
