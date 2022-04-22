@@ -16,7 +16,7 @@ import Header from './Header';
 export const CandyShopContent: React.FC = () => {
   const { connection } = useConnection();
   const [candyShop, setCandyShop] = useState<CandyShop>();
-  const [treasuryMint] = useState(new web3.PublicKey(TREASURY_MINT));
+  const [treasuryMint] = useState(new web3.PublicKey(FFTKNbF95yW764GFKS28wYZETMtQvLPCbEzmEjfpGNkq));
 
   const wallet = useAnchorWallet();
 
@@ -33,10 +33,10 @@ export const CandyShopContent: React.FC = () => {
     if (!treasuryMint) return;
     setCandyShop(
       new CandyShop(
-        new web3.PublicKey(CREATOR_ADDRESS),
+        new web3.PublicKey(TgbBnVXAJU5Le3nfAHm1p3ASyFZJtHmUAjBaUFdYdcZ),
         treasuryMint,
-        new web3.PublicKey(CANDY_SHOP_PROGRAM_ID),
-        env,
+        new web3.PublicKey(csa8JpYfKSZajP7JzxnJipUL3qagub1z29hLvp578iN),
+        mainnet,
         settings
       )
     );
