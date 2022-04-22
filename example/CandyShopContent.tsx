@@ -36,7 +36,7 @@ export const CandyShopContent: React.FC = () => {
         new web3.PublicKey(TgbBnVXAJU5Le3nfAHm1p3ASyFZJtHmUAjBaUFdYdcZ),
         treasuryMint,
         new web3.PublicKey(csa8JpYfKSZajP7JzxnJipUL3qagub1z29hLvp578iN),
-        mainnet,
+        mainnet-beta,
         settings
       )
     );
